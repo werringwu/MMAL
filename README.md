@@ -1,1 +1,140 @@
-# MMAL
+# Rebuttal Response to LrXP
+We sincerely thank your valuable time and efforts.
+## RQ1@Explain mathematical derivation  on local monents.
+According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structure. In smooth regions, $\mathrm{\mathbf{K}(x,y)→0}$, breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ in Eq.3 and making amplitude sensitive to local structural changes. Thus, MMAL enhances structural contrast in the frequency domain.
+
+Tab.1 Diff monotonic.
+$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
+-|-|-|-|-|
+PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
+
+Tab.2 Ablation study
+||w/o g(z)|w/o $M^(2)$|w/o λ|w/o Amp|all
+-|-|-|-|-|-
+PSNR↑/SSIM↑|22.99/.91|25.91/.941|26.4/.942|25.33/.93|26.63/.944
+## RQ2@Evaluate on real-world noisy.
+In Tab.3 and Tab.4, MMAL outperforms the baseline (RetinexFormer).
+
+Tab.3 Result of SID/SMID.
+| |baseline|MMAL|
+-|-|-
+SID|24.25/.672|24.34/.673
+SMID|29.15/.815|29.28/.816
+
+Tab.4 Noise vs PSNR/SSIM (LOL v2-real).
+|$\sigma^2$|0|.02|.04|.06|.1
+-|-|-|-|-|-
+baseline|22.80/.84|20.74/.694|18.8/.59|17.8/.522|16.29/.277
+MMAL|23.21/.875|21.3/.785|19.65/.669|18.93/.582|16.96/.378
+
+## RQ3@Compare with SOTA.
+In Tab.5, MMAL outperforms all baselines and RetinexFormer+MMAL surpasses recent methods.
+
+Tab.5 Comparison with SOTA.
+PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|WaveMamba'24|Diff-Retinex++'25|RetinexFormer+MMAL
+-|-|-|-|-|-
+LOLv1|-|20.53/.796|21.02/.808|24.67/.867|25.4/.872
+LOLv2-syn|25.87/.94|23.14/.88|23.32/.885|26.06/.944|26.63/.944
+
+## RQ4@compute efficiency.
+In Tab.6, MMAL increase a small training time and FLOPS, with any parameter and inference time changed, meeting real-time application.
+
+Tab.6 Diff loss(RetinexFormer,LOLv2-syn).
+||Baseline|FFL|LPIPS(VGG)|MMAL
+-|-|-|-|-
+PSNR↑/SSIM↑|25.67/.93|23.58/.858|26.29.932|26.63/.944
+Train/Infer(ms)|48.7/7.2|49.7/7.2|55.2/7.2|54.3/7.2
+FLOPS(G)|15.57|15.60|55.68|15.96
+Params(M)|1.61|1.61|14.72|1.61
+## RQ5@Clarify "semi-local".
+Semi-local stats (13x13 windows) encode mid-context, between local ops & global transforms. Lightweight & differentiable, they enable MMK's structure-aware modulation(in Sec. 3.2). The imfact in Tab.2.
+## FJ@Overfitting.
+Thanks for pointing out. The score of HWMNET was misreported (38.26 to 57.13 ), which without overfitting.
+
+
+# Rebuttal Response to D8KM
+Thank your valuable feedback.
+## RQ1@Clarify design motivation and "semi-local".
+In MMAL, semi-locality uses localized moment statistics to capture structural beyond individual pixels while remaining lightweight compared to global methods. As explained in Sec. 3.2, these moments modulate the amplitude in the frequency domain, enhancing structure awareness and noise robustness. In Tab.1, our method outperforms alternatives, achieving the best balance between noise suppression and structure preservation.
+
+Tab.1 Diff monotonic.
+$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
+-|-|-|-|-|
+PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
+## RQ2@Extremely low-light with severe noise and failure case.
+MMAL enhances low-light images by modulating amplitude based on local intensity variations, making the loss structure-aware and robust to noise. In Fig.4 (5-6th rows, manuscript), MMAL provides cleaner, more detailed results than baseline methods under heavy noise. Tab.2 shows improvements over RetinexFormer under increasing noise. However, baseline models remain brightness discontinuities which MMAL improves structure and reduces noise and still remains a limitation. We aim to address it in future work with noise-handling modules.
+
+Tab.2 Noise vs PSNR/SSIM (LOL v2-real).
+|$\sigma^2$|0|.02|.04|.06|.1
+-|-|-|-|-|-
+baseline|22.80/.84|20.74/.694|18.8/.59|17.8/.522|16.29/.277
+MMAL|23.21/.875|21.3/.785|19.65/.669|18.93/.582|16.96/.378
+## RQ3@Computational efficiency and real-time performance
+In Tab.3, MMAL increase training time and FLOPS slightly, but does't change parameters and inference time, meeting real-time application.
+
+Tab.3 Diff loss funcs(RetinexFormer).
+||Baseline|FFL|LPIPS(VGG)|MMAL
+-|-|-|-|-
+PSNR↑/SSIM↑|25.67/.93|23.58/.858|26.29.932|26.63/.944
+Train/Infer(ms)|48.7/7.2|49.7/7.2|55.2/7.2|54.3/7.2
+FLOPS(G)|15.57|15.60|55.68|15.96
+Params(M)|1.61|1.61|14.72|1.61
+## RQ4,RQ5@Comparisons of ablation study.
+In Tab.4, removing g(z) causes a large drop in SSIM, highlighting its importance in structure. Removing $M^(2)$ impacts both PSNR and SSIM, indicating their complementary roles in detail preservation. More visual images will be available in open-source repository.
+Tab.4 Ablation study
+||w/o g(z)|w/o $M^(2)$|w/o λ|w/o Amp|all
+-|-|-|-|-|-
+PSNR↑/SSIM↑|22.99/.91|25.91/.941|26.4/.942|25.33/.93|26.63/.944
+## Additional Comments@missing recent methods.
+In Tab.5, MMAL outperforms all baselines and RetinexFormer+MMAL surpasses recent methods.
+
+Tab.5 Comparison with SOTA.
+PSNR↑/SSIM↑|MambaLLIE|WaveMamba|Diff-Retinex++|RetinexFormer+MMAL
+-|-|-|-|-
+LOLv1|-|21.02/.808|24.67/.867|25.4/.872
+LOLv2-syn|25.87/.94|23.32/.885|26.06/.944|26.63/.944
+
+# Rebuttal Response to Um3Y
+Thank you for valuable time and efforts.
+## RQ1@Limited Novelty.
+MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural priors. Unlike prior frequency-based methods ([15,47]), MMAL uniquely bridges spatial domain statistics and  frequency learning. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE.
+Furthermore, MMAL formulates this modulation through a monotonic function that emphasizes meaningful structure and suppresses noise adaptively—an aspect absent in existing methods. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.1.
+
+Tab.1 Comparison with SOTA.
+PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|Diff-Retinex++'25|RetinexFormer+MMAL
+-|-|-|-|-|-|-|-
+LOLv1|-|20.53/.796|21.02/.808|21.59/.798|22.09/.815|24.67/.867|25.4/.872
+LOLv2-syn|25.87/.94|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.06/.944|26.63/.944 
+## RQ2@Methodological Clarity.
+We clarify that MMK is derived by computing local moment statistics over spatial windows, forming a semi-local modulation map as shown in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)=\frac{1+z}{2+z}}$ balances non-linearity and boundedness, preserving gradient stability. In Tab.2, we validated this choice against alternatives, and $\mathrm{g(z)}$ yielded consistently better PSNR and SSIM across LLIE tasks.
+Tab.2 Diff monotonic.
+$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
+-|-|-|-|-|
+PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
+
+## RQ3-1@Ablation study on moment order or window size.
+In Tab. 4 (manuscript), we have analysis of moment order of the imfact. In the revised manuscript, we have added an analysis of moment order and window size, as shown in Tab.3. We observe that the choice of moment order and window size significantly impacts both PSNR and SSIM in the LOL v2-syn dataset with RetinexFormer+.
+
+Tab.3 Diff kernel size.
+Size|5|7|9|11|13|15|17|19|21
+-|-|-|-|-|-|-|-|-|-
+PSNR↑/SSIM↑|25.8/.94|25.54/.938|26.33/.938|26.1/.941|26.23/.941|26.63/.944|26.04/0.937|25.85/.94|26.01/.94
+
+
+## RQ3-2@Comparisons with Fourier-domain methods.
+In 
+We have added comparisons with recent frequence-domain methods, shown in Tab.~\ref{tab:rebuttal_total_compare2}. Our MMAL focuses on constraining the learning process to enhance image quality, and we demonstrate that whether in the frequency domain or spatial domain, our approach consistently outperforms these methods, which mainly rely on frequency domain enhancement. The comparison clearly shows that our method is more effective in improving image quality by enforcing these constraints across both domains.
+
+
+
+Tab.4 Comparison with frequency method in LOL v2-syn.
+||FECNet|FECNet+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL
+-|-|-|-|-|-
+PSNR↑/SSIM↑|22.764/.899|23.35/.912|23.32/.885|24.16/.914|26.63/.944
+
+<!-- Tab.4 Comparison with SOTA.
+PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|Diff-Retinex++'25|RetinexFormer+MMAL
+-|-|-|-|-|-|-|-
+LOLv1|-|20.53/.796|21.02/.808|21.59/.798|22.09/.815|24.67/.867|25.4/.872
+LOLv2-syn|25.87/.94|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.06/.944|26.63/.944  -->
+

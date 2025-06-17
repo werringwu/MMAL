@@ -183,17 +183,7 @@ PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 <!-- Your paper appears to build upon existing techniques in the field. Could you clarify the novel contributions of MMAL compared to previous frequency-domain and moment-based approaches? -->
 <!-- MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural priors. Unlike prior frequency-based methods ([15,47]) that operate on amplitude or phase directly, MMAL uniquely bridges spatial domain statistics and  frequency learning. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE. The MMK through a monotonic function that emphasizes meaningful structure and suppresses noise adaptively—an aspect absent in existing methods. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.2, confirming its novelty and practical value. -->
 
-We propose a novel loss (MMAL) modulating the amplitude spectrum using local moment statistics (Sec.3.2), encoding semi-local structural patterns. This first work incorporating spatial moments into LLIE losses bridges the spatial-frequency domain gap, unlike prior frequency methods[15,47] manipulating amplitude/phase directly. We theoretically analyzes the detail loss of amplitudes, where the delicate conditions can be broken by the designed MMK to reserve image details.
-Furthermore the MMK applies a monotonic function on image moments to:
-Amplify semantically meaningful structures
-Adaptively suppress noise components
-– addressing limitations in existing approaches.
-Advantages:
-• Model-agnostic & lightweight: Compatible with spatial/frequency networks
-• Discriminative representation learning: Enhances feature quality across diverse LLV architectures
-• Empirically superior: Boosts PSNR/SSIM consistently (Manuscript Tab.1-2, Suppl.Tab.2)
-This spatial statistics-guided spectral modulation establishes new SOTA performance with significant practical utility.
-
+Traditional frequency-based method [15,47] directly manipulate amplitude or phase. However, MMAL innovatively combines moment functions with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial and frequency domains, which maintain semi-local structural details while benefiting from frequency-domain enhancements. To our knowledge, MMAL is the first to integrate moments as a loss for Low-Level Vision, opening new avenues for cross-domain learning. MMAL outperform serveral SOTA method (Tab.1,2, manuscript) and MMAL boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces extra inference cost(Tab.3).
 
 Tab.2 Comparison with frequency method in LOL v2-syn.
 ||FECNet|FECNet+MMAL|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL

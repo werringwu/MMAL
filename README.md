@@ -1,7 +1,7 @@
 # Rebuttal Response to LrXP
 We sincerely thank your valuable time and efforts.
 ## RQ1@Explain mathematical derivation  on local monents.
-According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structure. In smooth regions, $\mathrm{\mathbf{K}(x,y)→0}$, breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ in Eq.3 and making amplitude sensitive to local structural changes. Thus, MMAL enhances structural contrast in the frequency domain.
+According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structures. A large number of pixel values in $\mathrm{\mathbf{K}(x,y)}$ are relative small , breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}$ in Eq.3 and making amplitude sensitive to local structural changes, where smale pixel values of $\mathrm{\mathbf{I}(x,y)}·\mathrm{\mathbf{K}(x,y)}$ in smooth regions can hardly construct unexcepted coincident solutions. Thus, MMAL enhances structural contrast in the frequency domain.
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -55,7 +55,7 @@ Thanks for pointing out. The score of HWMNET was misreported (38.26 to 57.13 ), 
 # Rebuttal Response to D8KM
 Thank your valuable feedback.
 ## RQ1@Clarify design motivation and "semi-local".
-In MMAL, semi-locality uses localized moment statistics to capture structural beyond individual pixels while remaining lightweight compared to global methods. As explained in Sec. 3.2, these moments modulate the amplitude in the frequency domain, enhancing structure awareness and noise robustness. In Tab.1, our method outperforms alternatives, achieving the best balance between noise suppression and structure preservation.
+We discuss unexcepted coincident solutions in Eq.3 with mathematically experssion, where the delicate conditions can be broken by the application of MMK. Meanwhile, the designed MMK introduces structural information into frequency domtain through convolution theorem. Moreover, MMAL uses localized moment statistics to capture structural beyond individual pixels, where continuous features of image moment obtained in adjacent windows ensure capturing semi-local patterns, such as contours of large objects, as shown in Fig.1 and Fig.2.
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -97,8 +97,8 @@ LOLv2-syn|25.87/.94|23.32/.885|26.06/.944|26.63/.944
 # Rebuttal Response to Um3Y
 Thank you for valuable time and efforts.
 ## RQ1@Limited Novelty.
-MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural priors. Unlike prior frequency-based methods ([15,47]), MMAL uniquely bridges spatial domain statistics and  frequency learning. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE.
-Furthermore, MMAL formulates this modulation through a monotonic function that emphasizes meaningful structure and suppresses noise adaptively—an aspect absent in existing methods. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.1.
+MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. Unlike prior frequency-based methods ([15,47]), MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE.
+Furthermore, we mathematically verify the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.1.
 
 Tab.1 Comparison with SOTA.
 PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|Diff-Retinex++'25|RetinexFormer+MMAL
@@ -143,7 +143,9 @@ LOLv2-syn|25.87/.94|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.06/.944|26.63/.
 # Rebuttal Response to Pudy
 Thanks for your valuable time and efforts.
 ## RQ1@Methodological Clarity & MMK functions justify.
-MMK is derived by computing local moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ ensures smooth monotonicity, boundedness, and gradient. In Tab.1, against alternatives, current $\mathrm{g(z)}$ consistently achieved the best PSNR/SSIM.
+MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. Furthermore, we mathematically verify the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. Specifically, MMK is derived by computing local moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2, whose superiority can also be verified by experiments as in Tab.1.
+
+
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -174,7 +176,7 @@ In revised manuscript, we have expanded the discussion of \textit{FourLLIE and o
 Thanks for your response.
 ## RQ1@Theoretical justification of MMK.
 <!-- Regarding the modulation function g(z) = (1+z)/(2+z), could you provide theoretical justification for this specific formulation? Have you explored other monotonic functions, and if so, what were the comparative results? -->
-We clarify that the MMK is derived by computing local moment statistics over fixed windows (Sec. 3.2), forming a semi-local modulation map as shown in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)=\frac{1+z}{2+z}}$ ensures smooth monotonicity, boundedness, and gradient stability. As shown in Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the highest PSNR and SSIM across LLIE benchmarks. 
+The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frach{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. As shown in Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the highest PSNR and SSIM across LLIE benchmarks. 
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -184,8 +186,8 @@ PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 <!-- Your paper appears to build upon existing techniques in the field. Could you clarify the novel contributions of MMAL compared to previous frequency-domain and moment-based approaches? -->
 <!-- MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural priors. Unlike prior frequency-based methods ([15,47]) that operate on amplitude or phase directly, MMAL uniquely bridges spatial domain statistics and  frequency learning. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE. The MMK through a monotonic function that emphasizes meaningful structure and suppresses noise adaptively—an aspect absent in existing methods. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.2, confirming its novelty and practical value. -->
 
-We propose a novel loss (MMAL) modulating the amplitude spectrum using local moment statistics (Sec.3.2), encoding semi-local structural priors. This first work incorporating spatial moments into LLIE losses bridges the spatial-frequency domain gap, unlike prior frequency methods[15,47] manipulating amplitude/phase directly.
-The MMK applies a monotonic function to:
+We propose a novel loss (MMAL) modulating the amplitude spectrum using local moment statistics (Sec.3.2), encoding semi-local structural patterns. This first work incorporating spatial moments into LLIE losses bridges the spatial-frequency domain gap, unlike prior frequency methods[15,47] manipulating amplitude/phase directly. We theoretically analyzes the detail loss of amplitudes, where the delicate conditions can be broken by the designed MMK to reserve image details.
+Furthermore the MMK applies a monotonic function on image moments to:
 Amplify semantically meaningful structures
 Adaptively suppress noise components
 – addressing limitations in existing approaches.

@@ -53,46 +53,43 @@ Thanks for pointing out. The score of HWMNET was misreported (38.26 to 57.13 ), 
 
 
 # Rebuttal Response to D8KM
-Thank your valuable feedback.
+Thanks for feedback.
 ## RQ1@Clarify design motivation and "semi-local".
-We discuss unexcepted coincident solutions in Eq.3 with mathematically experssion, where the delicate conditions can be broken by the application of MMK. Meanwhile, the designed MMK introduces structural information into frequency domtain through convolution theorem. Moreover, MMAL uses localized moment statistics to capture structural beyond individual pixels, where continuous features of image moment obtained in adjacent windows ensure capturing semi-local patterns, such as contours of large objects, as shown in Fig.1 and Fig.2.
+Frequency-based methods excel at capturing global patterns but their amplitude components are often insensitive to spatial structural changes, leading to local detail loss (Sec. 3.1). MMAL addresses this by modulating frequency amplitudes via spatial moment statistics and a monotonic kernel, preserving semi-local structures while leveraging frequency benefits. The chosen $\mathrm{g(z)}$ function, with derivative $\frac{1}{(2+z)^2}$, suppresses minor disturbances and stabilizes optimization. Window-based moment computation introduces spatial awareness, enhancing robustness to luminance shifts, noise, and displacement (Fig. 2). The effectiveness of this design is validated in Tab. 1.
 
 Tab.1 Diff monotonic.
-$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
--|-|-|-|-|
-PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
+||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
+-|-|-|-|-
+PSNR/SSIM|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 ## RQ2@Extremely low-light with severe noise and failure case.
-MMAL enhances low-light images by modulating amplitude based on local intensity variations, making the loss structure-aware and robust to noise. In Fig.4 (5-6th rows, manuscript), MMAL provides cleaner, more detailed results than baseline methods under heavy noise. Tab.2 shows improvements over RetinexFormer under increasing noise. However, baseline models remain brightness discontinuities which MMAL improves structure and reduces noise and still remains a limitation. We aim to address it in future work with noise-handling modules.
+MMAL enhances low-light images by modulating amplitude with local intensity variations, yielding structure-aware, noise-robust enhancement. In Fig.4 (row 5,6), MMAL delivers cleaner details under heavy noise vs. baselines. Tab.2 shows improvements over RetinexFormer under increasing noise. Baseline models remain brightness discontinuities which MMAL improves structure and reduces noise and still remains a limitation. We aim to address it in future work with noise-handling modules.
 
 Tab.2 Noise vs PSNR/SSIM (LOL v2-real).
 |$\sigma^2$|0|.02|.04|.06|.1
 -|-|-|-|-|-
 baseline|22.80/.84|20.74/.694|18.8/.59|17.8/.522|16.29/.277
 MMAL|23.21/.875|21.3/.785|19.65/.669|18.93/.582|16.96/.378
-## RQ3@Computational efficiency and real-time performance
-In Tab.3, MMAL increase training time and FLOPS slightly, but does't change parameters and inference time, meeting real-time application.
+## RQ3@Computational efficiency
+In Tab.3, MMAL adds minor training time and FLOPS, unchange parameters and inference time, meeting real-time application.
 
-Tab.3 Diff loss funcs(RetinexFormer).
-||Baseline|FFL|LPIPS(VGG)|MMAL
--|-|-|-|-
-PSNR↑/SSIM↑|25.67/.93|23.58/.858|26.29.932|26.63/.944
-Train/Infer(ms)|48.7/7.2|49.7/7.2|55.2/7.2|54.3/7.2
-FLOPS(G)|15.57|15.60|55.68|15.96
-Params(M)|1.61|1.61|14.72|1.61
-## RQ4,RQ5@Comparisons of ablation study.
-In Tab.4, removing g(z) causes a large drop in SSIM, highlighting its importance in structure. Removing $M^(2)$ impacts both PSNR and SSIM, indicating their complementary roles in detail preservation. More visual images will be available in open-source repository.
-Tab.4 Ablation study
+Tab.3 Computational efficiency(RetinexFormer).
+||Baseline|MMAL
+-|-|-
+Train/Infer(ms)|48.7/7.2|54.3/7.2
+FLOPS(G)|15.57|15.96
+Params(M)|1.61|1.61
+## RQ4,RQ5@Ablation study.
+
+Tab.4. ablation confirms g(z) essential for SSIM↓, $M^(2)$ impacts both PSNR↓/SSIM↓ (detail preservation).  Visuals will in open-source repo.
 ||w/o g(z)|w/o $M^(2)$|w/o λ|w/o Amp|all
 -|-|-|-|-|-
-PSNR↑/SSIM↑|22.99/.91|25.91/.941|26.4/.942|25.33/.93|26.63/.944
-## Additional Comments@missing recent methods.
-In Tab.5, MMAL outperforms all baselines and RetinexFormer+MMAL surpasses recent methods.
+PSNR/SSIM|22.99/.91|25.91/.941|26.4/.942|25.33/.93|26.63/.944
+## ACs@missing recent methods.
 
-Tab.5 Comparison with SOTA.
-PSNR↑/SSIM↑|MambaLLIE|WaveMamba|Diff-Retinex++|RetinexFormer+MMAL
--|-|-|-|-
-LOLv1|-|21.02/.808|24.67/.867|25.4/.872
-LOLv2-syn|25.87/.94|23.32/.885|26.06/.944|26.63/.944
+Tab.5 compares with other SOTA.
+PSNR/SSIM|MambaLLIE|WaveMamba|RetinexFormer+MMAL
+-|-|-|-
+LOLv2-syn|25.87/.94|23.32/.885|26.63/.944
 
 # Rebuttal Response to Um3Y
 Thanks for valuable feedback.

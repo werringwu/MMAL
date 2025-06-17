@@ -139,13 +139,10 @@ LOLv1|-|20.53/.796|21.02/.808|21.59/.798|22.09/.815|24.67/.867|25.4/.872
 LOLv2-syn|25.87/.94|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.06/.944|26.63/.944  -->
 
 
-
 # Rebuttal Response to Pudy
 Thanks for your valuable time and efforts.
 ## RQ1@Methodological Clarity & MMK functions justify.
 MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. Furthermore, we mathematically verify the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. Specifically, MMK is derived by computing local moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2, whose superiority can also be verified by experiments as in Tab.1.
-
-
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -231,3 +228,4 @@ PSNR↑/SSIM↑|22.764/.899|23.35/.912|23.32/.885|24.16/.914|26.63/.944 -->
 ## Minor Issues@Writing issues.
 <!-- Thank you for your comments. We have clarified the definition of $\sigma^2=0.3$ in Fig.1 (manuscript), explained the notation difference between $\hat{\mathrm{A}}(u,v)$ and ${\mathrm{A}}(u,v)$, and corrected the typos in the revised manuscript. -->
 Thanks for pointing out. We have checked and revised the $\sigma^2$ definition, notation consistency, and typos as suggested.
+

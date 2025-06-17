@@ -1,55 +1,49 @@
 # Rebuttal Response to LrXP
-We sincerely thank your valuable time and efforts.
+Thanks for responses.
 ## RQ1@Explain mathematical derivation  on local monents.
-According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structures. A large number of pixel values in $\mathrm{\mathbf{K}(x,y)}$ are relative small , breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}$ in Eq.3 and making amplitude sensitive to local structural changes, where smale pixel values of $\mathrm{\mathbf{I}(x,y)}·\mathrm{\mathbf{K}(x,y)}$ in smooth regions can hardly construct unexcepted coincident solutions. Thus, MMAL enhances structural contrast in the frequency domain.
+According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structure. In smooth regions, $\mathrm{\mathbf{K}(x,y)→0}$, breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ in Eq.3 and making amplitude sensitive to local structural changes. Thus, MMAL enhances structural contrast in the frequency domain (Tab.1).
 
-Tab.1 Diff monotonic.
-$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
--|-|-|-|-|
-PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
-
-Tab.2 Ablation study
+Tab.1 Ablation study
 ||w/o g(z)|w/o $M^(2)$|w/o λ|w/o Amp|all
 -|-|-|-|-|-
-PSNR↑/SSIM↑|22.99/.91|25.91/.941|26.4/.942|25.33/.93|26.63/.944
+PSNR/SSIM|22.99/.91|25.91/.941|26.4/.942|25.33/.93|26.63/.944
 ## RQ2@Evaluate on real-world noisy.
-In Tab.3 and Tab.4, MMAL outperforms the baseline (RetinexFormer).
+In Tab.2 & Tab.3, MMAL outperforms the baseline (RetinexFormer).
 
-Tab.3 Result of SID/SMID.
+Tab.2 Result of SID/SMID.
 | |baseline|MMAL|
 -|-|-
 SID|24.25/.672|24.34/.673
 SMID|29.15/.815|29.28/.816
 
-Tab.4 Noise vs PSNR/SSIM (LOL v2-real).
+Tab.3 Noise vs PSNR/SSIM (LOL v2-real).
 |$\sigma^2$|0|.02|.04|.06|.1
 -|-|-|-|-|-
 baseline|22.80/.84|20.74/.694|18.8/.59|17.8/.522|16.29/.277
 MMAL|23.21/.875|21.3/.785|19.65/.669|18.93/.582|16.96/.378
 
 ## RQ3@Compare with SOTA.
-In Tab.5, MMAL outperforms all baselines and RetinexFormer+MMAL surpasses recent methods.
+In Tab.4, RetinexFormer+MMAL surpasses recent methods.
 
-Tab.5 Comparison with SOTA.
-PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|WaveMamba'24|Diff-Retinex++'25|RetinexFormer+MMAL
+Tab.4 Comparison with SOTA.
+PSNR/SSIM|MambaLLIE'25|FourLLIE'23|WaveMamba'24|Diff-Retinex++'25|RetinexFormer+MMAL
 -|-|-|-|-|-
 LOLv1|-|20.53/.796|21.02/.808|24.67/.867|25.4/.872
 LOLv2-syn|25.87/.94|23.14/.88|23.32/.885|26.06/.944|26.63/.944
 
-## RQ4@compute efficiency.
-In Tab.6, MMAL increase a small training time and FLOPS, with any parameter and inference time changed, meeting real-time application.
+## RQ4@Compute cost.
+In Tab.5, MMAL adds minor training time and FLOPS, unchange parameters and inference time. Lightweight design will be explored in future work.
 
-Tab.6 Diff loss(RetinexFormer,LOLv2-syn).
-||Baseline|FFL|LPIPS(VGG)|MMAL
--|-|-|-|-
-PSNR↑/SSIM↑|25.67/.93|23.58/.858|26.29.932|26.63/.944
-Train/Infer(ms)|48.7/7.2|49.7/7.2|55.2/7.2|54.3/7.2
-FLOPS(G)|15.57|15.60|55.68|15.96
-Params(M)|1.61|1.61|14.72|1.61
+Tab.5 Compute cost(RetinexFormer,LOLv2-syn).
+||Baseline|MMAL
+-|-|-
+Train/Infer(ms)|48.7/7.2|54.3/7.2
+FLOPS(G)|15.57|15.96
+Params(M)|1.61|1.61
 ## RQ5@Clarify "semi-local".
-Semi-local stats (13x13 windows) encode mid-context, between local ops & global transforms. Lightweight & differentiable, they enable MMK's structure-aware modulation(in Sec. 3.2). The imfact in Tab.2.
+Semi-local refers to moment statistics computed over a window(15x15,smaller than the full image) centered at each pixel, which captures structural patterns beyond individual pixels,  enabling mid-range spatial awareness,  preserving semi-local consistency across the image while integrating into frequecy-domain information (Sec. 3.2).  The imfact in Tab.1. Visuals will be opensource repo.
 ## FJ@Overfitting.
-Thanks for pointing out. The score of HWMNET was misreported (38.26 to 57.13 ), which without overfitting.
+Thanks for pointing out. The score of HWMNET was misreported (38.26→57.13 ), which without overfitting.
 
 
 # Rebuttal Response to D8KM

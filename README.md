@@ -169,53 +169,34 @@ In revised manuscript, we have expanded the discussion of \textit{FourLLIE and o
 [2] FourLLIE, 
 [3] MambaLLIE,
 
-# Rebuttal Response to ndr8
-Thanks for your response.
+# Rebuttal Response to ndrB
+Thanks for responses.
 ## RQ1@Theoretical justification of MMK.
-<!-- Regarding the modulation function g(z) = (1+z)/(2+z), could you provide theoretical justification for this specific formulation? Have you explored other monotonic functions, and if so, what were the comparative results? -->
-The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frac{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. As shown in Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the highest PSNR and SSIM across LLIE benchmarks. 
+The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. According to the chain rule, the $\frac{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ achieved the best performances in LOL v2-syn. 
 
 Tab.1 Diff monotonic.
-$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
+||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
 -|-|-|-|-|
-PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
+PSNR/SSIM|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 ## RQ2@Contributions of MMAL.
-<!-- Your paper appears to build upon existing techniques in the field. Could you clarify the novel contributions of MMAL compared to previous frequency-domain and moment-based approaches? -->
-<!-- MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural priors. Unlike prior frequency-based methods ([15,47]) that operate on amplitude or phase directly, MMAL uniquely bridges spatial domain statistics and  frequency learning. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE. The MMK through a monotonic function that emphasizes meaningful structure and suppresses noise adaptively—an aspect absent in existing methods. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.2, confirming its novelty and practical value. -->
-
-To our knowledge, MMAL is the first to integrate moments effectively as a loss for Low-Level Vision, opening new avenues for cross-domain learning. Traditional frequency-based method [15,47] directly manipulate amplitude or phase. However, MMAL innovatively combines moment functions with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial and frequency domains, which maintain semi-local structural details while benefiting from frequency-domain enhancements. MMAL outperform serveral SOTA method (Tab.1,2, manuscript) and MMAL boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces extra inference cost(Tab.3). 
+As we known, MMAL is the first to integrate moments effectively as a loss for Low-Level Vision, opening new avenues for cross-domain learning. Traditional frequency-based method [15,47] directly manipulate amplitude or phase. MMAL innovatively combines moment functions with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial & frequency domains, which maintain semi-local structural details while benefiting from frequency-domain enhancements. MMAL outperform serveral SOTA methods (Tab.1,2, manuscript) & MMAL boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces no-extra inference cost(Tab.3). 
 
 Tab.2 Comparison with frequency method in LOL v2-syn.
 ||FECNet|FECNet+MMAL|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL
 -|-|-|-|-|-|-|-
-PSNR↑/SSIM↑|22.764/.899|23.35/.912|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.63/.944
-
-
+PSNR/SSIM|22.764/.899|23.35/.912|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.63/.944
 ## RQ3@Comparisons with losses funcs.
-<!-- Why didn't you include comparisons with relevant frequency-based loss functions such as Focal Frequency Loss (Jiang et al., 2021) or perceptual metrics like LPIPS with different VGG layers? -->
-
 In Tab.3, MMAL outperforms both FFL and LPIPS(VGG), with better PSNR/SSIM and structure preservation. 
 
 Tab.3 Diff loss(RetinexFormer,LOLv2-syn).
 ||Baseline|FFL|LPIPS(VGG)|MMAL
 -|-|-|-|-
-PSNR↑/SSIM↑|25.67/.93|23.58/.858|26.29.932|26.63/.944
+PSNR/SSIM|25.67/.93|23.58/.858|26.29.932|26.63/.944
 Train/Infer(ms)|48.7/7.2|49.7/7.2|55.2/7.2|54.3/7.2
 FLOPS(G)|15.57|15.60|55.68|15.96
 Params(M)|1.61|1.61|14.72|1.61
-
 ## RQ4@comparisons with frequency-domain func.
-<!-- Have you considered comparing your approach with other frequency-domain enhancement methods like Wang et al.'s Fourier-based Exposure Correction or Zhang et al.'s Frequency Separation for Enhanced Restoration? -->
 MMAL significantly improves baseline performance (Tab.2) and structural benefits beyond frequency priors, approaching RetinexFormer+MMAL.
-
-<!-- In Tab.2, MMAL achieves a significant improvement over the baseline and narrows the gap with our RetinexFormer+. Notably, MMAL consistently brings extra performance gain across both frequency- and spatial- domain networks. -->
-
-<!-- Tab.4 Comparison with frequency method in LOL v2-syn.
-||FECNet|FECNet+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL
--|-|-|-|-|-
-PSNR↑/SSIM↑|22.764/.899|23.35/.912|23.32/.885|24.16/.914|26.63/.944 -->
-
 ## Minor Issues@Writing issues.
-<!-- Thank you for your comments. We have clarified the definition of $\sigma^2=0.3$ in Fig.1 (manuscript), explained the notation difference between $\hat{\mathrm{A}}(u,v)$ and ${\mathrm{A}}(u,v)$, and corrected the typos in the revised manuscript. -->
 Thanks for pointing out. We have checked and revised the $\sigma^2$ definition, notation consistency, and typos as suggested.
 

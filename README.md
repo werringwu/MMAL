@@ -95,49 +95,30 @@ LOLv1|-|21.02/.808|24.67/.867|25.4/.872
 LOLv2-syn|25.87/.94|23.32/.885|26.06/.944|26.63/.944
 
 # Rebuttal Response to Um3Y
-Thank you for valuable time and efforts.
+Thanks for valuable feedback.
 ## RQ1@Limited Novelty.
-MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. Unlike prior frequency-based methods ([15,47]), MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. As stated in Sec. 3.2 (manuscript), to the best of our knowledge, this is the first work to incorporate spatial moments into the loss for LLIE.
-Furthermore, we mathematically verify the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. The MMAL design is model-agnostic, lightweight, and complements both spatial- and frequency-based networks. Across diverse LLIE architectures, this mechanism helps models learn more discriminative representations, leading to improved PSNR/SSIM, shown in Tab.1-2 (manuscript) and Tab.1.
+As we known, MMAL is the first to fuse spatial structure into the frequency domain by effectively using local moment statistics $\mathrm{\mathbf{K}(x,y)}$ to modulate the frequency amplitude (Eq.6 & 7), breaking the traditional boundary between spatial & frequency domains. This modulation applies a monotonic function to hightlight structural details and suppress noise, enabling a semi-local fusion that combines the benefit of both domains (Fig.2 manuscript). The fusion method allows MMAL to maintain detailed structure while benefiting from the frequency domain’s global features. [15] involves spatial-frequency interaction but lacks feature-level fusion, [47] focuses on amplitude-based phase recovery, still treating the problem primarily in the frequency domain. [15,47] insufficiently utilized spatial cues, leading to the potential loss of structural details. MMAL outperform serveral SOTA method (Tab.1,2, manuscript) and MMAL boosts performance when combined with frequency-domain methods(Tab.1).  
 
-Tab.1 Comparison with SOTA.
-PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|Diff-Retinex++'25|RetinexFormer+MMAL
--|-|-|-|-|-|-|-
-LOLv1|-|20.53/.796|21.02/.808|21.59/.798|22.09/.815|24.67/.867|25.4/.872
-LOLv2-syn|25.87/.94|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.06/.944|26.63/.944 
-## RQ2@Methodological Clarity.
-We clarify that MMK is derived by computing local moment statistics over spatial windows, forming a semi-local modulation map as shown in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)=\frac{1+z}{2+z}}$ balances non-linearity and boundedness, preserving gradient stability. In Tab.2, we validated this choice against alternatives, and $\mathrm{g(z)}$ yielded consistently better PSNR and SSIM across LLIE tasks.
-Tab.2 Diff monotonic.
-$g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
--|-|-|-|-|
-PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
-
-## RQ3-1@Ablation study on moment order or window size.
-In Tab. 4 (manuscript), we have analysis of moment order of the imfact. In the revised manuscript, we have added an analysis of moment order and window size, as shown in Tab.3. We observe that the choice of moment order and window size significantly impacts both PSNR and SSIM in the LOL v2-syn dataset with RetinexFormer+.
-
-Tab.3 Diff kernel size.
-Size|5|7|9|11|13|15|17|19|21
--|-|-|-|-|-|-|-|-|-
-PSNR↑/SSIM↑|25.8/.94|25.54/.938|26.33/.938|26.1/.941|26.23/.941|26.63/.944|26.04/0.937|25.85/.94|26.01/.94
-
-
-## RQ3-2@Comparisons with Fourier-domain methods.
-In 
-We have added comparisons with recent frequence-domain methods, shown in Tab.~\ref{tab:rebuttal_total_compare2}. Our MMAL focuses on constraining the learning process to enhance image quality, and we demonstrate that whether in the frequency domain or spatial domain, our approach consistently outperforms these methods, which mainly rely on frequency domain enhancement. The comparison clearly shows that our method is more effective in improving image quality by enforcing these constraints across both domains.
-
-
-
-Tab.4 Comparison with frequency method in LOL v2-syn.
-||FECNet|FECNet+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL
+Tab.1 Comparison with frequency method in LOL v2-syn.
+||FECNet|FECNet+MMAL|FourLLIE'23|FourLLIE+MMAL|RetinexFormer+MMAL
 -|-|-|-|-|-
-PSNR↑/SSIM↑|22.764/.899|23.35/.912|23.32/.885|24.16/.914|26.63/.944
+PSNR/SSIM|22.764/.899|23.35/.912|23.14/.88|23.54/.91|26.63/.944
+## RQ2@Methodological Clarity.
+The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frac{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the best PSNR/SSIM across LLIE benchmarks. 
 
-<!-- Tab.4 Comparison with SOTA.
-PSNR↑/SSIM↑|MambaLLIE'25|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|Diff-Retinex++'25|RetinexFormer+MMAL
+Tab.3 Diff monotonic.
+||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
+-|-|-|-|-
+PSNR/SSIM|23.92/.922|25.63/.939|26.33/.942|26.63/.944
+## RQ3-1@Ablation study on moment order or window size.
+The imfact of moment order have been analyzed (Tab.4 manuscript) and window size shown in Tab.4. 
+
+Tab.4 Diff kernel size.
+Size|7|9|11|13|15|17|19
 -|-|-|-|-|-|-|-
-LOLv1|-|20.53/.796|21.02/.808|21.59/.798|22.09/.815|24.67/.867|25.4/.872
-LOLv2-syn|25.87/.94|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.06/.944|26.63/.944  -->
-
+PSNR/SSIM|25.54/.938|26.33/.938|26.1/.941|26.23/.941|26.63/.944|26.04/0.937|25.85/.94
+## RQ3-2@Comparisons with Fourier-domain methods.
+MMAL significantly improves baseline performance (Tab.1) and structural benefits beyond frequency priors, approaching RetinexFormer+MMAL.
 
 # Rebuttal Response to Pudy
 Thanks for valuable time and efforts.

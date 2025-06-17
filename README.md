@@ -179,14 +179,14 @@ Tab.1 Diff monotonic.
 -|-|-|-|-|
 PSNR/SSIM|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 ## RQ2@Contributions of MMAL.
-As we known, MMAL is the first to integrate moments effectively as a loss for Low-Level Vision, opening new avenues for cross-domain learning. Traditional frequency-based method [15,47] directly manipulate amplitude or phase. MMAL innovatively combines moment functions with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial & frequency domains, which maintain semi-local structural details while benefiting from frequency-domain enhancements. MMAL outperform serveral SOTA methods (Tab.1,2, manuscript) & MMAL boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces no-extra inference cost(Tab.3). 
+As we known, MMAL is the first to integrate moments effectively as a loss for Low-Level Vision, opening new avenues for cross-domain learning. Traditional frequency-based method [15,47] directly manipulate amplitude or phase. MMAL innovatively combines moment functions with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial & frequency domains, which maintain semi-local structural details while benefiting from frequency-domain enhancements. MMAL outperform serveral SOTA methods (Tab.1,2, manuscript) and MMAL boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces no-extra inference cost(Tab.3). 
 
 Tab.2 Comparison with frequency method in LOL v2-syn.
 ||FECNet|FECNet+MMAL|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL
 -|-|-|-|-|-|-|-
 PSNR/SSIM|22.764/.899|23.35/.912|23.14/.88|23.54/.91|23.32/.885|24.16/.914|26.63/.944
 ## RQ3@Comparisons with losses funcs.
-In Tab.3, MMAL outperforms both FFL and LPIPS(VGG), with better PSNR/SSIM and structure preservation. 
+In Tab.3, MMAL outperforms both FFL & LPIPS(VGG), with better PSNR/SSIM and structure preservation. 
 
 Tab.3 Diff loss(RetinexFormer,LOLv2-syn).
 ||Baseline|FFL|LPIPS(VGG)|MMAL

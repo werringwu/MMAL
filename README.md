@@ -1,7 +1,8 @@
 # Rebuttal Response to LrXP
 We sincerely thank your valuable time and efforts.
 ## RQ1@Explain mathematical derivation  on local monents.
-According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structures. A large number of pixel values in $\mathrm{\mathbf{K}(x,y)→0}$ tend to be zero, breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ in Eq.3 and making amplitude sensitive to local structural changes, where $\mathrm{\mathbf{K}(x,y)→0}·\mathrm{\mathbf{K}(x,y)→0}$ in smooth regions can hardly construct coincident unexcepted solutions. Thus, MMAL enhances structural contrast in the frequency domain.
+
+According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structures. A large number of pixel values in $\mathrm{\mathbf{K}(x,y)→0}$, breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ in Eq.3 and making amplitude sensitive to local structural changes, where $\mathrm{\mathbf{I}(x,y)}·\mathrm{\mathbf{K}(x,y)→0}$ in smooth regions can hardly construct coincident unexcepted solutions. Thus, MMAL enhances structural contrast in the frequency domain.
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$

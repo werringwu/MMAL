@@ -173,7 +173,7 @@ In revised manuscript, we have expanded the discussion of \textit{FourLLIE and o
 Thanks for your response.
 ## RQ1@Theoretical justification of MMK.
 <!-- Regarding the modulation function g(z) = (1+z)/(2+z), could you provide theoretical justification for this specific formulation? Have you explored other monotonic functions, and if so, what were the comparative results? -->
-The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frach{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. As shown in Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the highest PSNR and SSIM across LLIE benchmarks. 
+The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frac{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. As shown in Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the highest PSNR and SSIM across LLIE benchmarks. 
 
 Tab.1 Diff monotonic.
 $g(z)$|$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$

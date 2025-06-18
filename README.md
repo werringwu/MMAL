@@ -114,14 +114,14 @@ MMAL significantly improves baseline performance (Tab.1) and structural benefits
 # Rebuttal Response to Pudy
 Thanks for valuable time and efforts.
 ## RQ1@Methodological Clarity & MMK functions justify.
-MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. Furthermore, we mathematically analyse the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. Specifically, MMK is derived by computing moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2, whose superiority can also be verified by experiments as in Tab.1.
+MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. Furthermore, we mathematically analyse the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. Specifically, MMK is derived by computing moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. Our $\mathrm{g(z)}$ could scale amplitude weights with structural complexity, its boundedness ensures gradient stability and MMK's spatial invariance (Fig. 2), whose superiority can also be verified by experiments as in Tab.1.
 
 Tab.1 Diff monotonic.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
 -|-|-|-|-|
 PSNR↑/SSIM↑|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 ## RQ2@computational complexity.
-Thank you for your valuable feedback. We evaluated the computational complexity of MMAL and compared it with other loss functions like FFL and LPIPS (VGG). In Tab.2, MMAL introduces a small increase in training time (54.295 ms) and FLOPs (15.958 G) compared to the baseline (RetinexFormer). However, the parameter count remains unchanged at 1.61M, and the inference time for a 256x256 image is 7.19 ms, which meets real-time requirements. 
+Thanks for valuable feedback. We evaluated the computational complexity of MMAL and compared it with other loss functions like FFL and LPIPS (VGG). In Tab.2, MMAL introduces a small increase in training time (54.295 ms) and FLOPs (15.958 G) compared to the baseline (RetinexFormer). However, the parameter count remains unchanged at 1.61M, and the inference time for a 256x256 image is 7.19 ms, which meets real-time requirements. 
 
 Tab.2 Diff loss(RetinexFormer,LOLv2-syn).
 ||Baseline|FFL|LPIPS(VGG)|MMAL
@@ -135,7 +135,7 @@ Params(M)|1.61|1.61|14.72|1.61
 In extreme low-light conditions with high noise, baseline models often exhibit brightness discontinuities. While MMAL improves structure & reduce noise, the issue remains. We aim to tackle this in future work with noise-aware modules or improved loss designs. 
 
 ## Cons4@Add discussion of related work.
-In the revised manuscript, we discussed FourLLIE and other frequency-based[1-3] method, which focus on frequency-domain information, enhancing global patterns while neglecting local structure and details. These approaches often fails to capture fine image details, which are critical for effective LLIE.
+We discussed FourLLIE and other frequency-based[1-3] method, which focus on frequency-domain information, enhancing global patterns while neglecting local structure and details. These approaches often fails to capture fine image details, which are critical for effective LLIE.
 
 [1] WaveMamba.
 [2] FourLLIE.

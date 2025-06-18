@@ -1,6 +1,6 @@
 # Rebuttal Response to LrXP
 Thanks for responses.
-## RQ1@Explain mathematical derivation  on local monents.
+## RQ1@Explain mathematical derivation on local monents.
 According to convolution theorem, MMAL (Eq.6) compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$, built from image moments (Eq.7) to encode structure. $\mathrm{\mathbf{K}(x,y)}$ breaks the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ between smooth and structural pixels in Eq.3, making amplitude sensitive to local structural changes and thus enhancing structural details (Tab.1).
 
 Tab.1 Ablation study

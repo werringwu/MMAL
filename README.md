@@ -1,7 +1,7 @@
 # Rebuttal Response to LrXP
 Thanks for responses.
-## RQ1@Explain mathematical derivation  on local monents.
-According to convolution theorem, MMAL Loss $\mathcal{L}$ (Eq.6) computes the amplitude differences, which effectively compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$. The modulation map $\mathrm{\mathbf{K}(x,y)}$ built from local moments and a monotonic mapping (Eq.7), encodes structure. In smooth regions, $\mathrm{\mathbf{K}(x,y)→0}$, breaking the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ in Eq.3 and making amplitude sensitive to local structural changes. Thus, MMAL enhances structural contrast in the frequency domain (Tab.1).
+## RQ1@Explain mathematical derivation on local monents.
+According to convolution theorem, MMAL (Eq.6) compares the Fourier transforms of $\mathrm{\mathbf{I}(x,y)·\mathbf{K}(x,y)}$, built from image moments (Eq.7) to encode structure. $\mathrm{\mathbf{K}(x,y)}$ breaks the conditions $\mathrm{\mathbf{I}{(x_1,y_1)}}=\mathrm{\mathbf{I}{(x_2,y_2)}}=\mathrm{\mathbf{I}{(x_3,y_3)}}$ and $\mathrm{\delta_{x_2,y_2,x_3,y_3}}=0$ between smooth and structural pixels in Eq.3, making amplitude sensitive to local structural changes and thus enhancing structural details (Tab.1).
 
 Tab.1 Ablation study
 ||w/o g(z)|w/o $M^(2)$|w/o λ|w/o Amp|all
@@ -49,7 +49,7 @@ Thanks for pointing out. The score of HWMNET was misreported (38.26→57.13 ), w
 # Rebuttal Response to D8KM
 Thanks for feedback.
 ## RQ1@Clarify design motivation and "semi-local".
-Frequency-based methods excel at capturing global patterns but their amplitude components are often insensitive to spatial structural changes, leading to local detail loss (Sec. 3.1). MMAL addresses this by modulating frequency amplitudes via spatial moment statistics and a monotonic kernel, preserving semi-local structures while leveraging frequency benefits. The chosen $\mathrm{g(z)}$ function, with derivative $\frac{1}{(2+z)^2}$, suppresses minor disturbances and stabilizes optimization. Window-based moment computation introduces spatial awareness, enhancing robustness to luminance shifts, noise, and displacement (Fig. 2). The effectiveness of this design is validated in Tab. 1.
+Frequency-based methods excel at capturing global patterns but their amplitude components are often insensitive to spatial structural changes, leading to local detail loss (Sec. 3.1). MMAL addresses this by modulating frequency amplitudes via spatial moment statistics, preserving semi-local structures while leveraging frequency benefits. The chosen $\mathrm{g(z)}$, with derivative $\frac{1}{(2+z)^2}$, facitilates disturbances invariance and stabilizes optimization. Window-based moment introduces spatial awareness (Fig. 2). The effectiveness of this design is validated in Tab. 1.
 
 Tab.1 Diff monotonic.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -88,14 +88,14 @@ LOLv2-syn|25.87/.94|23.32/.885|26.63/.944
 # Rebuttal Response to Um3Y
 Thanks for valuable feedback.
 ## RQ1@Limited Novelty.
-As we known, MMAL is the first to fuse spatial structure into the frequency domain by effectively using local moment statistics $\mathrm{\mathbf{K}(x,y)}$ to modulate the frequency amplitude (Eq.6 & 7), breaking the traditional boundary between spatial & frequency domains. This modulation applies a monotonic function to hightlight structural details and suppress noise, enabling a semi-local fusion that combines the benefit of both domains (Fig.2 manuscript). The fusion method allows MMAL to maintain detailed structure while benefiting from the frequency domain’s global features. [15] involves spatial-frequency interaction but lacks feature-level fusion, [47] focuses on amplitude-based phase recovery, still treating the problem primarily in the frequency domain. [15,47] insufficiently utilized spatial cues, leading to the potential loss of structural details. MMAL outperform serveral SOTA method (Tab.1,2, manuscript) and MMAL boosts performance when combined with frequency-domain methods(Tab.1).  
+MMAL is the first to fuse spatial structure into frequency domain by using moment statistics $\mathrm{\mathbf{K}(x,y)}$ through convolution theorem (Eq.6 & 7), which hightlights semi-local structures such as large edges (Fig.2 manuscript), maintaining detailed structure while benefiting from the frequency domain’s global features. Compared to [15,47], we theoretically explain and analyze the loss of details (Sec.3.1), which can be avoided by MMAL in part under theoretical analyses. MMAL outperforms serveral SOTA methods (Tab.1,2, manuscript) and boosts performance when combined with frequency-domain methods(Tab.1).  
 
 Tab.1 Comparison with frequency method in LOL v2-syn.
 ||FECNet|FECNet+MMAL|FourLLIE'23|FourLLIE+MMAL|RetinexFormer+MMAL
 -|-|-|-|-|-
 PSNR/SSIM|22.764/.899|23.35/.912|23.14/.88|23.54/.91|26.63/.944
 ## RQ2@Methodological Clarity.
-The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frac{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the best PSNR/SSIM across LLIE benchmarks. 
+The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frac{1}{(2+z)^2}$ makes values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the best PSNR/SSIM across LLIE benchmarks. 
 
 Tab.3 Diff monotonic.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -114,7 +114,7 @@ MMAL significantly improves baseline performance (Tab.1) and structural benefits
 # Rebuttal Response to Pudy
 Thanks for valuable time and efforts.
 ## RQ1@Methodological Clarity & MMK functions justify.
-MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. Furthermore, we mathematically verify the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. Specifically, MMK is derived by computing local moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2, whose superiority can also be verified by experiments as in Tab.1.
+MMAL introduces a novel structure-aware loss by modulating the frequency amplitude using local moments statistics, which encode semi-local structural patterns. MMAL uniquely bridges spatial domain statistics and frequency learning through convolution theorem. Furthermore, we mathematically analyse the loss of image details in Eq.3, where the delicate conditions of unexcepted coincident soltuions can be broken by MMK. Specifically, MMK is derived by computing moment statistics over spatial windows, forming a semi-local modulation map in Eq.7. This map scales the frequency amplitude in a structure-aware manner. The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2, whose superiority can also be verified by experiments as in Tab.1.
 
 Tab.1 Diff monotonic.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -144,14 +144,14 @@ In the revised manuscript, we discussed FourLLIE and other frequency-based[1-3] 
 # Rebuttal Response to ndrB
 Thanks for responses.
 ## RQ1@Theoretical justification of MMK.
-The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. According to the chain rule, the $\frac{1}{(2+z)^2}$ makes relative small values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ achieved the best performances in LOL v2-syn. 
+The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. According to the chain rule, the $\frac{1}{(2+z)^2}$ makes values in difference map of image moments caused by spatial disturbances smaller, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ achieved the best performances in LOL v2-syn. 
 
 Tab.1 Diff monotonic.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
 -|-|-|-|-|
 PSNR/SSIM|23.92/.922|25.63/.939|26.33/.942|26.63/.944
 ## RQ2@Contributions of MMAL.
-As we known, MMAL is the first to integrate moments effectively as a loss for Low-Level Vision, opening new avenues for cross-domain learning. Traditional frequency-based method [15,47] directly manipulate amplitude or phase. MMAL innovatively combines moment functions with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial & frequency domains, which maintain semi-local structural details while benefiting from frequency-domain enhancements. MMAL outperform serveral SOTA methods (Tab.1,2, manuscript) and MMAL boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces no-extra inference cost(Tab.3). 
+MMAL is the first to integrate moments as a loss for Low-Level Vision, opening new avenues for cross-domain learning. Traditional frequency-based method [15,47] directly manipulate amplitude or phase. MMAL innovatively combines moments  with a monotonic kernel to modulate the frequency domain, breaking the traditional boundary between spatial & frequency domains through convolution theorem, which maintains semi-local details while benefiting from frequency-domain enhancements. MMAL outperforms serveral SOTA methods (Tab.1,2, manuscript) and boosts performance when combined with frequency-domain methods(Tab.2). While mixed cross-domian networks incurs significant cost, MMAL introduces no-extra inference cost(Tab.3). 
 
 Tab.2 Comparison with frequency method in LOL v2-syn.
 ||FECNet|FECNet+MMAL|FourLLIE'23|FourLLIE+MMAL|WaveMamba'24|WaveMamba+MMAL|RetinexFormer+MMAL

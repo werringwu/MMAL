@@ -95,7 +95,7 @@ Tab.1 Comparison with frequency method in LOL v2-syn.
 -|-|-|-|-|-
 PSNR/SSIM|22.764/.899|23.35/.912|23.14/.88|23.54/.91|26.63/.944
 ## RQ2@Methodological Clarity.
-The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. Specifically, according to the chain rule, the $\frac{1}{(2+z)^2}$ makes values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ consistently achieved the best PSNR/SSIM across LLIE benchmarks. 
+Our $\mathrm{g(z)}$ could scale amplitude weights with structural complexity, its boundedness ensures gradient stability and MMK's spatial invariance (Fig. 2). According to chain rule, $\frac{1}{(2+z)^2}$ makes values in difference map of image moments caused by spatial disturbances tend to be zero, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, $\mathrm{g(z)}$ consistently achieved the best PSNR/SSIM across LLIE benchmarks. 
 
 Tab.3 Diff monotonics.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$
@@ -144,7 +144,7 @@ In the revised manuscript, we discussed FourLLIE and other frequency-based[1-3] 
 # Rebuttal Response to ndrB
 Thanks for responses.
 ## RQ1@Theoretical justification of MMK.
-The choice of $\mathrm{g(z)}=\frac{1+z}{2+z}$ facilitates invariablitiy of MMK to spatial disturbance as in Fig.2. According to the chain rule, the $\frac{1}{(2+z)^2}$ makes values in difference map of image moments caused by spatial disturbances smaller, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. In Tab.1, we validated this choice against alternatives, and $\mathrm{g(z)}$ achieved the best performances in LOL v2-syn. 
+Our $\mathrm{g(z)}$ could scale amplitude weights with structural complexity, its boundedness ensures gradient stability and MMK's spatial invariance (Fig. 2). According to chain rule, $\frac{1}{(2+z)^2}$ makes values in difference map of image moments caused by spatial disturbances smaller, facilitating invariablitiy to spatial disturbance in optimizating nonlinear continuous network. We validated $\mathrm{g(z)}$ against alternatives, and  achieved the best performances on LOL v2-syn (Tab.1). 
 
 Tab.1 Diff monotonic.
 ||$\log(1+z)$|$2^z$|$\frac{1}{1+\exp^{-z}}$|$\frac{1+z}{2+z}$

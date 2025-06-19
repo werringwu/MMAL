@@ -14,7 +14,7 @@ Tab.2 Result of SID/SMID.
 | |baseline|MMAL|
 -|-|-
 SID|24.25/.672|24.34/.673
-SMID|29.15/.815|29.28/.816
+SMID|29.15/.815|29.32/.817
 
 Tab.3 Noise vs PSNR/SSIM (LOL v2-real).
 |$\sigma^2$|0|.02|.04|.06|.1
